@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="vacation" content="July 2, 2029 — I'll be there." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Trust the Process • For My Angel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #e4edf9 100%);
+      color: #2c3e50;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 30px 20px 20px;
+      transition: background 1s ease;
+      position: relative;
+      overflow-x: hidden;
+    }
+    .sky {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      opacity: 0.2;
+      background: 
+        radial-gradient(circle at 20% 30%, #1e40af 2px, transparent 2px),
+        radial-gradient(circle at 80% 70%, #1e40af 1px, transparent 1px);
+      background-size: 100px 100px;
+      z-index: 1;
+    }
+
+    /* Snowflakes */
+    #snowflakes {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .snowflake {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.85;
+      pointer-events: none;
+    }
+
+    .container {
+      text-align: center;
+      max-width: 90vw;
+      width: 520px;
+      z-index: 2;
+    }
+    h1 {
+      font-weight: 600;
+      font-size: 26px;
+      margin: 0 0 10px;
+      color: #1a3a6c;
+      letter-spacing: 0.5px;
+    }
+    .tagline {
+      font-size: 18px;
+      opacity: 0.85;
+      margin: 0 0 25px;
+      font-weight: 400;
+      line-height: 1.4;
+    }
+    .clocks {
+      display: flex;
+      justify-content: space-around;
+      margin: 20px 0;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    .clock {
+      background: rgba(255, 255, 255, 0.75);
+      padding: 16px 20px;
+      border-radius: 18px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+      min-width: 170px;
+      transition: transform 0.2s;
+    }
+    .clock:hover {
+      transform: translateY(-3px);
+    }
+    .time {
+      font-size: 28px;
+      font-weight: 600;
+      color: #1a3a6c;
+    }
+    .label {
+      font-size: 14px;
+      opacity: 0.85;
+      margin-top: 5px;
+    }
+    .message, .letter-box {
+      font-size: 18px;
+      line-height: 1.55;
+      margin: 22px 0;
+      padding: 16px;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 16px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+    }
+    .letter-box {
+      font-style: italic;
+      font-size: 16px;
+    }
+    .footer {
+      font-size: 14px;
+      opacity: 0.8;
+      margin: 20px 0 15px;
+      line-height: 1.4;
+    }
+    .counters {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin: 15px 0;
+      flex-wrap: wrap;
+    }
+    .counter {
+      background: rgba(26, 58, 108, 0.08);
+      padding: 10px 16px;
+      border-radius: 14px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .counter:hover {
+      background: rgba(26, 58, 108, 0.15);
+    }
+    .counter-value {
+      font-weight: 600;
+      color: #1a3a6c;
+      display: block;
+      font-size: 18px;
+    }
+
+    .secret-section {
+      display: none;
+      margin-top: 25px;
+      padding: 22px;
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 18px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      text-align: left;
+      max-width: 90%;
+      animation: fadeIn 0.7s ease;
+      position: relative;
+      z-index: 2;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 22px;
+      max-width: 90%;
+    }
+    .magic-btn {
+      padding: 11px 20px;
+      background: #1a3a6c;
+      color: white;
+      border: none;
+      border-radius: 22px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 3px 8px rgba(26, 58, 108, 0.35);
+      font-family: 'Inter', sans-serif;
+    }
+    .magic-btn:hover {
+      background: #254a8c;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 12px rgba(26, 58, 108, 0.4);
+    }
+
+    .voice-meta, .future-meta, .hug-meta, .faith-meta {
+      font-size: 14px;
+      opacity: 0.85;
+      margin-top: 16px;
+      text-align: right;
+      font-style: italic;
+    }
+
+    #promiseScroll {
+      position: absolute;
+      bottom: 25px;
+      right: 25px;
+      width: 36px;
+      height: 36px;
+      background: #1a3a6c;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+      z-index: 10;
+      transition: transform 0.3s;
+    }
+    #promiseScroll:hover {
+      transform: rotate(15deg) scale(1.1);
+    }
+
+    #promiseLetter {
+      display: none;
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      width: 280px;
+      background: #fdf6e3;
+      border: 1px solid #e8d8a2;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+      font-family: 'Caveat', cursive;
+      font-size: 17px;
+      line-height: 1.6;
+      color: #5a3e2b;
+      z-index: 100;
+    }
+    #promiseLetter h3 {
+      margin-top: 0;
+      color: #7d5a30;
+      font-size: 20px;
+    }
+    #closePromise {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: none;
+      border: none;
+      font-size: 18px;
+      cursor: pointer;
+      color: #9c7a4e;
+    }
+
+    /* Music Control */
+    #musicControl {
+      position: absolute;
+      bottom: 25px;
+      left: 25px;
+      width: 36px;
+      height: 36px;
+      background: rgba(26, 58, 108, 0.2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #1a3a6c;
+      font-size: 16px;
+      cursor: pointer;
+      z-index: 10;
+      backdrop-filter: blur(2px);
+      transition: all 0.3s;
+    }
+    #musicControl.playing {
+      background: rgba(255, 215, 0, 0.3);
+      color: #1a3a6c;
+    }
+
+    body.night {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%) !important;
+      color: #e2e8f0 !important;
+    }
+    body.night .sky {
+      opacity: 0.4;
+      background: 
+        radial-gradient(circle at 20% 30%, #cbd5e1 2px, transparent 2px),
+        radial-gradient(circle at 80% 70%, #cbd5e1 1px, transparent 1px);
+    }
+    body.night .clock,
+    body.night .message,
+    body.night .letter-box,
+    body.night .secret-section {
+      background: rgba(30, 41, 59, 0.8) !important;
+      color: #e2e8f0 !important;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3) !important;
+    }
+    body.night h1,
+    body.night .tagline,
+    body.night .time,
+    body.night .counter-value {
+      color: #cbd5e1 !important;
+    }
+    body.night .magic-btn {
+      background: #334155 !important;
+    }
+    body.night .magic-btn:hover {
+      background: #475569 !important;
+    }
+    body.night #promiseScroll {
+      background: #334155;
+    }
+    body.night #musicControl {
+      background: rgba(255, 255, 255, 0.15);
+      color: #cbd5e1;
+    }
+    body.night #musicControl.playing {
+      background: rgba(255, 215, 0, 0.25);
+      color: #ffd700;
+    }
+  </style>
+</head>
+<body>
+  <div class="sky"></div>
+  <div id="snowflakes"></div>
+  
+  <div class="container">
+    <h1>Trust the Process</h1>
+    <p class="tagline">Two hearts. One promise. A thousand reasons to wait.</p>
+    
+    <div class="clocks">
+      <div class="clock">
+        <div class="time" id="angelTime">--:--</div>
+        <div class="label">🌙 Angel • Washington</div>
+      </div>
+      <div class="clock">
+        <div class="time" id="francescTime">--:--</div>
+        <div class="label">☀️ Francesc • Nairobi</div>
+      </div>
+    </div>
+
+    <div class="message" id="loveNote">
+      Loading your love...
+    </div>
+
+    <div class="letter-box" id="dailyLetter">
+      Loading today's note...
+    </div>
+
+    <div class="footer">
+      Together since <b>October 31, 2025</b> • Reunion: <b>July 2, 2029</b>
+    </div>
+
+    <div class="counters">
+      <div class="counter" onclick="showMemory('since')">
+        <span class="counter-value" id="daysSince">--</span>
+        Days together
+      </div>
+      <div class="counter" onclick="showMemory('until')">
+        <span class="counter-value" id="daysUntil">--</span>
+        Days until your birthday
+      </div>
+    </div>
+
+    <div class="buttons">
+      <button class="magic-btn" onclick="showSection('voice')">Show Me Your Voice</button>
+      <button class="magic-btn" onclick="showSection('future')">Tell Me Our Future</button>
+      <button class="magic-btn" onclick="showSection('hug')">Hold Me (In Words)</button>
+      <button class="magic-btn" onclick="showSection('faith')">Read Our Faith</button>
+      <button class="magic-btn" onclick="toggleMusic()">Play Our Song</button>
+    </div>
+
+    <div id="voice" class="secret-section">
+      <div class="voice-text">
+        🎧 <b>Voice Message (0:08)</b><br><br>
+        Hey, Angel… it’s me.<br>
+        I just wanted to hear your voice today—but since I can’t,<br>
+        I’m sending this instead:<br><br>
+        <i>You’re safe. You’re loved. And this distance?<br>
+        It’s just a chapter.<br>
+        Our forever starts in 2029.</i><br><br>
+        Trust the process, my love.<br>
+        I do. Every day.
+      </div>
+      <div class="voice-meta">— Francesc</div>
+    </div>
+
+    <div id="future" class="secret-section">
+      <div class="future-text">
+        🌅 <b>Our Life, Already Loved</b><br><br>
+
+        Angel, I don’t just hope for our future—I already love it.<br><br>
+
+        I love you as my wife—the one I come home to, the one who knows my silence and fills it with warmth.<br>
+        I love the way you’ll roll your eyes when I leave my shoes by the door… and how you’ll still kiss me goodnight.<br><br>
+
+        And I already love our children.<br>
+        Not as a dream, but as a promise.<br>
+        I see them running into your arms after school, whispering secrets in your ear, learning kindness from the way you hold my hand.<br>
+        I’ll teach them to be gentle, to listen deeply, to always ask, “Did you eat?”—because that’s how we show love in our home.<br><br>
+
+        I love our ordinary days:  
+        You making pancakes on Sunday mornings.  
+        Me packing lunches with little notes.  
+        Family walks after dinner, your hand in mine, our kids racing ahead.<br><br>
+
+        I love our hard days too—because we’ll face them together.  
+        You’ll cry, and I’ll hold you.  
+        I’ll doubt, and you’ll remind me, “We’ve got this.”  
+        And every time, we’ll come out closer.<br><br>
+
+        Most of all, I love <b>you</b>—not just for who you are today, but for the mother, partner, and soul I already know you’ll be.<br>
+        You’re not just my love. You’re my home.<br><br>
+
+        So yes, I’m waiting.  
+        But more than that—I’m preparing.  
+        My heart is already there…  
+        in the kitchen, on the porch, in the quiet moments of a life we’ll build,  
+        <i>together.</i>
+      </div>
+      <div class="future-meta">— Francesc, loving you and our family—now and always</div>
+    </div>
+
+    <div id="hug" class="secret-section">
+      <div class="hug-text">
+        🤗 <b>The First Hug</b><br><br>
+        When I finally hold you,<br>
+        I won’t say a word.<br>
+        I’ll just breathe you in—<br>
+        your hair, your warmth, the weight of you against my chest.<br>
+        My arms will say everything:<br>
+        <i>“I missed you. I waited. You’re home.”</i><br><br>
+        And when you pull back to look at me?<br>
+        I’ll smile… and whisper,<br>
+        <i>“Took us long enough.”</i>
+      </div>
+      <div class="hug-meta">— Francesc</div>
+    </div>
+
+    <div id="faith" class="secret-section">
+      <div class="faith-text">
+        💌 <b>Our Timeline of Trust</b><br><br>
+
+        <b>• October 31, 2025</b><br>
+        We said “us” for the first time.<br>
+        Not perfect. Not easy.<br>
+        But real. And ours.<br><br>
+
+        <b>• The First Storm</b><br>
+        We almost broke—but didn’t.<br>
+        You stayed. I came back.<br>
+        And in that space between leaving and returning,<br>
+        we learned: love isn’t about never drifting…<br>
+        it’s about always finding your way home.<br><br>
+
+        <b>• The Quiet Promise</b><br>
+        You whispered, <i>“I’ll wait.”</i><br>
+        And I whispered back, <i>“Then I’ll be worth it.”</i><br>
+        Not with grand words—but with daily choices:<br>
+        to show up, to listen, to believe in “us”<br>
+        even when distance screamed otherwise.<br><br>
+
+        <b>• The Turning Point</b><br>
+        I stopped wondering if someone better existed<br>
+        and started building a future only you fit into.<br>
+        Because “better” isn’t a person—it’s a feeling.<br>
+        And I only feel it with you.<br><br>
+
+        <b>• Today</b><br>
+        We’re not just waiting.<br>
+        We’re preparing.<br>
+        Every “good morning” and “did you eat?”<br>
+        is a brick in the house we’ll share in 2029.<br><br>
+
+        <b>• Forever</b><br>
+        No matter how long it takes,<br>
+        no matter how far we’ve been—<br>
+        we’ve already chosen each other.<br>
+        Over and over.<br>
+        Again and again.
+      </div>
+      <div class="faith-meta">— Francesc & Angel • The love that chose to stay</div>
+    </div>
+  </div>
+
+  <div id="promiseScroll" onclick="togglePromise()">📜</div>
+  <div id="promiseLetter">
+    <button id="closePromise" onclick="togglePromise()">×</button>
+    <h3>Your Gentleman’s Promise</h3>
+    I promise to always…<br>
+    • Notice when you’re tired<br>
+    • Remind you to eat, shower, brush—<br>
+     even when you’re all grown<br>
+    • Believe in us, especially on hard days<br>
+    • Keep our future warm until you step into it<br><br>
+    Signed,<br>
+    <i>Your forever gentleman</i>
+  </div>
+
+  <div id="musicControl" onclick="toggleMusic()" title="Toggle music">🎵</div>
+
+  <audio id="backgroundMusic" preload="none">
+    <source src="https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/Kevin_MacLeod/Piano_Solo/Kevin_MacLeod_-_Piano_Solo_-_03_-_Careless_Whisper.mp3" type="audio/mpeg">
+    Your browser does not support audio.
+  </audio>
+
+  <script>
+    // === SNOWFALL ===
+    function createSnowflakes() {
+      const container = document.getElementById('snowflakes');
+      const flakes = 75;
+      for (let i = 0; i < flakes; i++) {
+        const snowflake = document.createElement('div');
+        snowflake.classList.add('snowflake');
+        const size = Math.random() * 6 + 2;
+        const posX = Math.random() * 100;
+        const delay = Math.random() * 5;
+        const duration = Math.random() * 5 + 5;
+        snowflake.style.width = `${size}px`;
+        snowflake.style.height = `${size}px`;
+        snowflake.style.left = `${posX}vw`;
+        snowflake.style.top = `-10px`;
+        snowflake.style.opacity = Math.random() * 0.5 + 0.3;
+        snowflake.style.animation = `fall ${duration}s linear ${delay}s infinite`;
+        container.appendChild(snowflake);
+      }
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes fall {
+          to { transform: translateY(100vh) translateX(${Math.random() > 0.5 ? 10 : -10}px); }
+        }
+      `;
+      document.head.appendChild(style);
+    }
+
+    // === MUSIC ===
+    let isPlaying = false;
+    const musicBtn = document.getElementById('musicControl');
+    const audio = document.getElementById('backgroundMusic');
+
+    function toggleMusic() {
+      if (isPlaying) {
+        audio.pause();
+        musicBtn.classList.remove('playing');
+        musicBtn.textContent = '🎵';
+      } else {
+        audio.volume = 0.25;
+        audio.play().then(() => {
+          isPlaying = true;
+          musicBtn.classList.add('playing');
+          musicBtn.textContent = '⏸️';
+        }).catch(e => {
+          alert('Music requires a user click to start (browser policy). Try clicking "Play Our Song" above!');
+        });
+      }
+    }
+
+    audio.addEventListener('ended', () => {
+      isPlaying = false;
+      musicBtn.classList.remove('playing');
+      musicBtn.textContent = '🎵';
+    });
+
+    // === SECRET PHRASE ===
+    let typed = '';
+    const secretPhrase = 'trust the process';
+    document.addEventListener('keydown', (e) => {
+      if (e.key === ' ' || e.key === 'Enter') {
+        typed = '';
+        return;
+      }
+      typed += e.key.toLowerCase();
+      if (typed.endsWith(secretPhrase)) {
+        showSection('voice');
+        typed = '';
+      }
+      if (typed.length > 50) typed = '';
+    });
+
+    // === SECTION CONTROLLER ===
+    function showSection(id) {
+      document.querySelectorAll('.secret-section').forEach(el => {
+        el.style.display = 'none';
+      });
+      if (id) document.getElementById(id).style.display = 'block';
+    }
+
+    function togglePromise() {
+      const letter = document.getElementById('promiseLetter');
+      letter.style.display = letter.style.display === 'block' ? 'none' : 'block';
+    }
+
+    // === TIME & REMINDERS ===
+    const angelTZ = 'America/Los_Angeles';
+    const francescTZ = 'Africa/Nairobi';
+
+    const reminders = [
+      "Did you shower today, Angel? 💦 The water’s warm… and so am I, thinking of you.",
+      "Eat something warm—you’re worth feeding, love. 🍲",
+      "Brush those teeth… I’ll kiss you one day, and I want your smile ready. 😊",
+      "You’ve been on my mind since morning here. How’s your night?",
+      "Rest well. I’m saving a dream for you tonight."
+    ];
+
+    const dailyLetters = [
+      "I saw snow in Nairobi today. (Okay, I dreamed it—but I imagined you walking through it, and me beside you.)",
+      "Your voice at 2 a.m. is my favorite lullaby—even when you’re just whispering 'goodnight.'",
+      "I keep a list of things I’ll do when we meet: 1. Hold your hand. 2. Make you tea. 3. Never let go.",
+      "You once said you felt invisible. Angel, you’re the first thought in my sunrise.",
+      "I don’t just miss you. I miss the way your silence feels like home."
+    ];
+
+    function updateClocks() {
+      const now = new Date();
+      document.getElementById('angelTime').textContent = now.toLocaleTimeString('en-US', { timeZone: angelTZ, hour12: true, hour: '2-digit', minute: '2-digit' });
+      document.getElementById('francescTime').textContent = now.toLocaleTimeString('en-US', { timeZone: francescTZ, hour12: true, hour: '2-digit', minute: '2-digit' });
+
+      const angelHour = parseInt(now.toLocaleTimeString('en-US', { timeZone: angelTZ, hour12: false, hour: '2-digit' }));
+      if (angelHour >= 22 || angelHour < 6) {
+        document.body.classList.add('night');
+        if (angelHour === 2 && now.getMinutes() === 15 && now.getSeconds() === 0) {
+          document.getElementById('loveNote').textContent = "I know you’re awake.\n\nSo I’m sending this softly:\nYou’re loved. You’re enough.\nAnd I’m right here—even in the silence.";
+        }
+      } else {
+        document.body.classList.remove('night');
+      }
+    }
+
+    function rotateNote() {
+      const randomNote = reminders[Math.floor(Math.random() * reminders.length)];
+      document.getElementById('loveNote').textContent = randomNote;
+    }
+
+    function updateDailyLetter() {
+      const dayIndex = Math.floor(new Date().getTime() / (1000 * 60 * 60 * 24)) % dailyLetters.length;
+      document.getElementById('dailyLetter').textContent = "📩 Today’s Note From Francesc\n\n" + dailyLetters[dayIndex];
+    }
+
+    function updateCounters() {
+      const startDate = new Date('October 31, 2025 00:00:00').getTime();
+      const targetDate = new Date('July 2, 2029 00:00:00').getTime();
+      const now = new Date().getTime();
+      
+      const since = Math.floor((now - startDate) / (1000 * 60 * 60 * 24));
+      const until = Math.ceil((targetDate - now) / (1000 * 60 * 60 * 24));
+      
+      document.getElementById('daysSince').textContent = Math.max(0, since);
+      document.getElementById('daysUntil').textContent = until > 0 ? until : 0;
+    }
+
+    let currentMemory = null;
+    function showMemory(type) {
+      const messages = {
+        since: [
+          "Day 1: You said 'I love you' first. I’ve been chasing that feeling ever since.",
+          "Day 3: You laughed so hard you cried. I saved that sound in my heart.",
+          "Day 7: We stayed up till 4 a.m. talking about nothing… and everything."
+        ],
+        until: [
+          "July 2, 2029: I’ll be there by your birthday. Suitcase in hand. Heart in yours.",
+          "The day after: We’ll finally share a shower. (I’ll still remind you to wash behind your ears.)",
+          "One year later: We’ll look back and say, 'Worth every second.'"
+        ]
+      };
+      
+      const msg = messages[type][Math.floor(Math.random() * messages[type].length)];
+      alert(msg);
+    }
+
+    // === INITIALIZE ===
+    createSnowflakes();
+    updateClocks();
+    rotateNote();
+    updateDailyLetter();
+    updateCounters();
+    
+    setInterval(updateClocks, 1000);
+    setInterval(rotateNote, 12000);
+    setInterval(updateDailyLetter, 300000);
+    setInterval(updateCounters, 60000);
+  </script>
+</body>
+</html>
